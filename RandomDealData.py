@@ -12,6 +12,8 @@ TIME_PERIOD_MILLIS = 3600000
 EPOCH = datetime.now() - timedelta(days = 1)
 
 class   RandomDealData:
+    __dealId = 20000
+
     def createInstrumentList(self):
         f = open('initialRandomValues.txt', 'r')
         instrumentId = 1000
@@ -32,15 +34,14 @@ class   RandomDealData:
 
     def createRandomData( self, instrumentList ):
         time.sleep(random.uniform(1,30)/100)
-        dealId = 20000
         instrument = instrumentList[numpy.random.randint(0,len(instrumentList))]
         cpty = counterparties[numpy.random.randint(0,len(counterparties))]
         type = 'B' if numpy.random.choice([True, False]) else 'S'
         quantity = int( numpy.power(1001, numpy.random.random()))
         dealTime = datetime.now() - timedelta(days = 1)
-        dealId += 1
+        self.__dealId += int( numpy.power(1001, numpy.random.random()))
         deal = {
-            'dealId' : dealId,
+            'dealId' : self.__dealId,
             'instrumentName' : instrument.getName(),
             'cpty' : cpty,
             'price' : instrument.calculateNextPrice(type),
