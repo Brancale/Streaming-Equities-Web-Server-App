@@ -40,11 +40,17 @@ class   RandomDealData:
         dealTime = datetime.now() - timedelta(days = 1)
         dealId += 1
         deal = {
+            'dealId' : dealId,
             'instrumentName' : instrument.name,
             'cpty' : cpty,
             'price' : instrument.calculateNextPrice(type),
             'type' : type,
             'quantity' : quantity,
             'time' : dealTime.strftime("%d-%b-%Y (%H:%M:%S.%f)"),
+            'hashedValue' : instrument.hashedValue,
+            'isNegative' : instrument.isNegative,
+            'basePrice' : instrument.basePrice,
+            'drift' : instrument.drift,
+            'variance' : instrument.variance
             }
         return json.dumps(deal)
