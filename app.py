@@ -5,25 +5,34 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+#todo to separate class
+class Deal:
+    def __init__(self, deal_id, instrument_name, cpty, price, type, quantity, time, hashed_value, is_negative, base_price, drift, variance):
+        self.deal_id = deal_id
+        self.instrument_name = instrument_name
+        self.cpty = cpty
+        self.price = price
+        self.type = type
+        self.quantity = quantity
+        self.time = time
+        self.hashed_value = hashed_value
+        self.is_negative = is_negative
+        self.base_price = base_price
+        self.drift = drift
+        self.variance = variance
 
-# class Deal:
-#     def __init__(self, deal_id, instrument_name, cpty, price, type, quantity, time, hashed_value, is_negative, base_price, drift, variance):
-#         self.deal_id = deal_id
-#         self.instrument_name = instrument_name
-#         self.cpty = cpty
-#         self.price = price
-#         self.type = type
-#         self.quantity = quantity
-#         self.time = time
-#         self.hashed_value = hashed_value
-#         self.is_negative = is_negative
-#         self.base_price = base_price
-#         self.drift = drift
-#         self.variance = variance
+#class Deal(object):
+#    def __init__(self, j):
+#        self.__dict__ = json.loads(j)
 
-class Deal(object):
-    def __init__(self, j):
-        self.__dict__ = json.loads(j)
+def as_deal(dct):
+    return Deal(dct.get('dealId', None), dct.get('instrumentName', None),
+                dct.get('cpty', None), dct.get('price', None),
+                dct.get('type', None), dct.get('quantity', None),
+                dct.get('time', None), dct.get('hashedValue', None),
+                dct.get('isNegative', None), dct.get('basePrice', None),
+                dct.get('drift', None), dct.get('variance', None))
+
 
 @app.route("/")
 def clock():
@@ -48,9 +57,11 @@ def recieve_json():
     # print(data['dealId'])
     # print(data)
     data = '{"dealId": 20001, "instrumentName": "Astronomica", "cpty": "Lewis", "price": 0.0, "type": "B", "quantity": 322, "time": "11-Aug-2019 (14:14:35.394758)", "hashedValue": -1372613350, "isNegative": true, "basePrice": 3440.0, "drift": -0.0, "variance": -3.5}';
-    # obj = jsonify(data)
-    deal = Deal(data)
-    print(deal.deal_id)
+    
+    d = as_deal(json.loads(data))
+    # d = Deal(data)
+    print(d.deal_id)
+    
     return Response(status=200)
 
 def get_time():
