@@ -1,6 +1,6 @@
 import datetime
 import time
-from flask import Flask, Response
+from flask import Flask, Response, jsonify, Request, request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -19,6 +19,17 @@ def get_time():
 
     return Response(eventsStream());
 
+@app.route('/sendjson', methods=['GET', 'POST'])
+def send_json():
+    data = {'dealId': '20001'}
+    return Response(str(data), status=200, mimetype='application/json');
+
+@app.route('/recieveJSON', methods=['GET', 'POST'])
+def recieve_json():
+    data = request.json
+    print(data['dealId'])
+    print(data)
+    return Response(status=200)
 
 def get_time():
     time.sleep(1.0)
@@ -26,9 +37,9 @@ def get_time():
 
 
 if __name__ == "__main__":
-    # app.run(port='5001')
+    app.run(port='5001')
     # app.run(port=5001, threaded=True, host=('192.168.0.1'))
-      app.run(port='5000', threaded=True, host=('0.0.0.0'))
+    #   app.run(port='5000', threaded=True, host=('0.0.0.0'))
 
 
 
