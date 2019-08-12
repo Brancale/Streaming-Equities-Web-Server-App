@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Deals` (
   `quantity` INT NULL,
   `time` DATETIME(5) NULL,
   PRIMARY KEY (`dealId`)),
-  FOREIGN KEY(instrumentName) REFERENCES `mydb`.`Instruments`(`instrumentName`);
+  FOREIGN KEY(instrumentName) REFERENCES `mydb`.`Instruments`(`instrumentName`));
 ENGINE = InnoDB;
 
 
