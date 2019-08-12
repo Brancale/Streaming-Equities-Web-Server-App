@@ -1,7 +1,8 @@
 import React from 'react';
 
 
-function submitLogin() {
+function submitLogin(e) {
+  e.preventDefault();
   var user = document.getElementById("username");
   var pwd = document.getElementById("password");
   document.getElementById('testMessage').innerHTML = "Username: "+ user.value + " Password: : " + pwd.value;
