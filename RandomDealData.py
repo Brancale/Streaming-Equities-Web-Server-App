@@ -39,7 +39,7 @@ class   RandomDealData:
         type = 'B' if numpy.random.choice([True, False]) else 'S'
         quantity = int( numpy.power(1001, numpy.random.random()))
         dealTime = datetime.now() - timedelta(days = 1)
-        self.__dealId += int( numpy.power(1001, numpy.random.random()))
+        self.__dealId += 1
         deal = {
             'dealId' : self.__dealId,
             'instrumentName' : instrument.getName(),
