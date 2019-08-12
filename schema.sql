@@ -17,6 +17,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
+DROP TABLE IF EXISTS Instruments;
+
 -- -----------------------------------------------------
 -- Table `mydb`.`Instruments`
 -- -----------------------------------------------------
@@ -30,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Instruments` (
   PRIMARY KEY (`instrumentName`))
 ENGINE = InnoDB;
 
-
+DROP TABLE IF EXISTS Deals;
 -- -----------------------------------------------------
 -- Table `mydb`.`Deals`
 -- -----------------------------------------------------
@@ -41,9 +43,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Deals` (
   `price` FLOAT NULL,
   `type` CHAR(1) NULL,
   `quantity` INT NULL,
-  `time` DATETIME(5) NULL,
-  PRIMARY KEY (`dealId`)),
-  FOREIGN KEY(instrumentName) REFERENCES `mydb`.`Instruments`(`instrumentName`));
+  `time` DATETIME(0) NULL,
+  PRIMARY KEY (`dealId`),
+  FOREIGN KEY(instrumentName) REFERENCES `mydb`.`Instruments`(`instrumentName`))
 ENGINE = InnoDB;
 
 
