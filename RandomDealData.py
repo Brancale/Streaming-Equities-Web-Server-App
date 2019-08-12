@@ -24,7 +24,7 @@ class   RandomDealData:
             drift = 0 - drift if isNegative else drift
             variance = (abs(hashedValue) % 1000) / 100.0
             variance = 0 - variance if isNegative else variance
-            instrument = Instrument(instrumentName, hashedValue, isNegative, basePrice, drift, variance)
+            instrument = Instrument(instrumentName, hashedValue, isNegative, basePrice, drift, variance) #Instrument Object
             instrumentList.append(instrument)
             instrumentId += 1
         return instrumentList
