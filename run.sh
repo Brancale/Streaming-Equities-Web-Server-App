@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-docker stop hw
-docker rm -f hw
-docker build . -t helloworld
-docker run -d -p 5000:5000 -dit --name hw helloworld
+docker stop dg
+docker rm -f dg
+docker build . -t datagen
+docker run -d -p 5000:5000 -dit --name dg datagen

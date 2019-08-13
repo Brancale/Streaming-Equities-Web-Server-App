@@ -100,10 +100,8 @@ def disconnect_from_db(connection, cursor):
 
 def stream_to_sql(jsonData, connection, cursor):
 
-
-
     date_obj = datetime.strptime(jsonData['time'], "%d-%b-%Y (%H:%M:%S.%f)")
-    dt = date_obj.strftime("%y-%m-%d %H:%M:%S")
+    dt = date_obj.strftime("%y-%m-%d %H:%M:%S.%f")
 
     sql_insert_query = " INSERT INTO Deals " \
                    " (dealId, `instrumentName`, `cpty`, `price`, `type`, `quantity`, `time`) " \
