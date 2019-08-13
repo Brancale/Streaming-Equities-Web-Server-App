@@ -47,7 +47,7 @@ class   RandomDealData:
             'price' : instrument.calculateNextPrice(type),
             'type' : type,
             'quantity' : quantity,
-            'time' : dealTime.strftime("%d-%b-%Y (%H:%M:%S.%f)"),
+            'time': dealTime.strftime("%d-%b-%Y (%H:%M:%S.%f)"),
             'hashedValue' : instrument.gethashedValue(),
             'isNegative' : instrument.getisNegative(),
             'basePrice' : instrument.getbasePrice(),
