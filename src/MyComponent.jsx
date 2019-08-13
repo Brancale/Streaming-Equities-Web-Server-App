@@ -1,34 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import ExtendedComponent from './ExtendedComponent'
+import ReactDOM from 'react-dom';
 
-var user = "";
-var pwd = "";
-
-
-// Get
-// const getJSON = async () => {
-
-//   const res1 = await axios.get('http://127.0.0.1:5001/login');
-//       const reply = await res1.data;
-//       console.log(reply)
-//       alert(reply);
-// }
-
-// Send
-// const sendJSON = async () => {
-
-//   var data = JSON.stringify({
-//     "username": user.value,
-//     "password": pwd.value
-//   });
-
-//   var request = new XMLHttpRequest();
-//   request.open('POST', 'http://127.0.0.1:5001/login', true);
-//   request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-//   var result = request.send(data);
-//   console.log(result)
-// }
-
+let user="";
+let pwd="";
 
 async function makePostRequest() {
 
@@ -39,11 +15,14 @@ async function makePostRequest() {
   axios.post('http://127.0.0.1:5001/login', data)
     .then((response) => {
       console.log(response);
-      alert('authorised')
+      //alert('authorised')
+      ReactDOM.render(<ExtendedComponent />, document.getElementById('root'))
     })
     .catch((error) => {
       console.log(error);
-      alert('go to hell')
+      document.getElementById("errorText").innerHTML = "Access denied";
+     ReactDOM.render(<ExtendedComponent />, document.getElementById('root'))
+
     });
 }
 
@@ -52,14 +31,13 @@ function submitLogin(e) {
   
   user = document.getElementById("username");
   pwd = document.getElementById("password");
-  document.getElementById('testMessage').innerHTML = "Username: "+ user.value + " Password: : " + pwd.value;
+  //document.getElementById('testMessage').innerHTML = "Username: "+ user.value + " Password: : " + pwd.value;
   makePostRequest()
- // sendJSON();
-  //getJSON();
-  //alert("Success");
+  
 }
 
-const MyComponent = () => {
+const MyComponent = (user) => {
+
  return (
 
     <div id= "formforlogin">
@@ -74,9 +52,11 @@ const MyComponent = () => {
           </label>
           <br></br>
           <button id="submit" onClick={submitLogin}>Submit</button>
-          <div id="testMessage"></div>
+          <font text id ='errorText' color='red'></font>
+          <div id="testMessage" text=""></div>
         </form>
     </div>
+    
       );
     };
 
