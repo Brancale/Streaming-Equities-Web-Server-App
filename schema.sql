@@ -48,6 +48,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Deals` (
   FOREIGN KEY(instrumentName) REFERENCES `mydb`.`Instruments`(`instrumentName`))
 ENGINE = InnoDB;
 
+DROP TABLE IF EXISTS Users;
+-- -----------------------------------------------------
+-- Table `mydb`.`Users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Users` (
+  `userId` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`userId`))
+ENGINE = InnoDB;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
