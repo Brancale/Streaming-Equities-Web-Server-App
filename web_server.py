@@ -12,8 +12,8 @@ CORS(app)
 
 
 daoAddr = 'http://127.0.0.1'
-daoPort = ':7000/login'
-
+daoPortLogin = ':7000/login'
+daoPortQuery = ':7000/webserver_to_dao'
 
 @app.route("/login", methods=['GET'])
 def login():
@@ -21,35 +21,75 @@ def login():
     password = request.args.get('password', None)
     print(username)
     data = {'username': username,'password': password}
-    url = daoAddr + daoPort
+    url = daoAddr + daoPortLogin
     response = requests.get(url, data)
     return response.text, response.status_code
 
+# operation for avgSellPrices data
+def op_avgSellPrices(data, operName):
+    # gather fields for this operation
 
-def send_query(userid, password):
-    connection = mysql.connector.connect(host='192.168.99.100',
-                                         database='mydb',
-                                         user='root',
-                                         password='ppp')
-    query = ('SET @userId = "%s", @password ="%s"; ' % (userid, password))
-    query += 'SELECT COUNT(1) FROM `Users` WHERE userId = @userId AND password = @password;'
-    print(query)
-    cursor = connection.cursor()
-    results = cursor.execute(query, multi=True)
-    result = 0
-    is_user_authenticated = False
-    for cur in results:
-        if cur.with_rows:
-            result = cur.fetchall()[0][0]
-            print(result)
+    startDate = data[0]
+    endDate = data[1]
 
-    if result == 1:
-        is_user_authenticated = True
+    # Set up SQL query
+    query = 'SELECT instrumentName, AVG(Price) AS AverageSellPrice, (SELECT AVG(Price) FROM Deals Where Date(time) >= ' \
+            '("' + startDate + '") and Date(Time) <= ("' + endDate + '") and type = "B") AS AverageBuyPrice' \
+            'From Deals ' \
+            'Where Date(time) >= ("' + startDate + '") and Date(Time) <= ("' + endDate + '") and type= "S"' \
+            'GROUP BY instrumentName;'
 
-    cursor.close()
-    connection.close()
+    data = {'query': query}
+    url = daoAddr + daoPortQuery
+    # Make get request to dao for DB data
+    results = requests.get(url, data)
 
-    return is_user_authenticated
+    # Business logic. Prepare data for React frontend
+
+    instrumentLabels = []
+    buyPriceList = []
+    sellPriceList = []
+    # Go through rows in record and create data for React
+    for row in results:
+        instrumentName = row[0]
+        avgSellPrice = row[1]
+        avgBuyPrice = row[2]
+
+        instrumentLabels.append(instrumentName)
+        sellPriceList.append(avgSellPrice)
+        buyPriceList.append(avgBuyPrice)
+
+    # Build JSON
+    response = {}
+    BandS = {}
+    Buys = {}
+    Sells = {}
+
+    Buys['labels'] = instrumentLabels
+    Buys['data'] = buyPriceList
+    Sells['labels'] = instrumentLabels
+    Sells['data'] = sellPriceList
+
+    BandS['Buys'] = Buys
+    BandS['Sells'] = Sells
+
+    response['operationType'] = operName
+    response['BandS'] = BandS
+
+    # Reply
+    return response.text, response.status_code
+
+@app.route("/query", methods=['GET'])
+def send_query():
+    operationRequest = request.args.get('operation', None)
+    operParams = request.args.get('params', None)
+    if operationRequest == 'avgSellPrices':
+        response, status_code = op_avgSellPrices(operParams, operationRequest)
+    else:
+        response = {'Error'}
+        status_code = 500
+        return
+    return response, status_code
 
 
 class User:
@@ -79,7 +119,3 @@ def stream_to_sql(jsonData, connection, cursor):
 
 def boot_app():
     app.run(debug=True, threaded=True, host='127.0.0.1', port='5001')
-
-
-# if __name__ == "__main__":
-#     app.run(port='5001')
