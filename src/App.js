@@ -65,7 +65,7 @@ function App() {
  return (
    <Router >
     
-  <Route path="/login" component={MyComponent} />
+  <Route exact path="/" component={MyComponent} />
   <Route path="/chart" component={ExtendedComponent} />
 
 </Router>

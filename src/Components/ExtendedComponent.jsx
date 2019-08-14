@@ -15,11 +15,8 @@ var counterpartySelect = "";
 var data;
 
 
-function logOut(e) {
-  e.preventDefault();
-  ReactDOM.render(<MyComponent />, document.getElementById('root'))
 
-}
+
 // function goToAdvAnPage(e) {
 //   e.preventDefault();
 //   ReactDOM.render(<AdvancedAnalyticsComponent />, document.getElementById('root'))
@@ -59,7 +56,14 @@ async function makePostRequestQuery() {
     });
 }
 
-const ExtendedComponent = () => {
+function ExtendedComponent(props){
+
+
+  function logOut(e) {
+    props.history.push("/")
+  
+  }
+
   let data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', '1', '2', '3', '4', '5'],
     // labels: data.labels
