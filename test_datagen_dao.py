@@ -8,10 +8,10 @@ class test_dao(unittest.TestCase):
         userObj = datagen_dao.as_user(loginJSON)
         assert userObj.username == "user", "Should return user"
 
-    def test_as_user(self):
+    def test_as_pass(self):
         loginJSON = {"username":"user","password":"pass"}
         userObj = datagen_dao.as_user(loginJSON)
-        assert userObj.username == "pass", "Should return pass"
+        assert userObj.password == "pass", "Should return pass"
 
     def test_auth(self):
         loginJSON = {"username":"user","password":"pass"}
