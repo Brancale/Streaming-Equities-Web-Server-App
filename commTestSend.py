@@ -14,7 +14,7 @@ def sendData():
     headers = {'content-type': 'application/json'}
     response = requests.get(url, payload)
     print(response.status_code)
-    return "Sending" + response.status_code
+    return str(response.status_code)
 
 def boot_app():
     app.run(debug=True, threaded=True)
