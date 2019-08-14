@@ -17,7 +17,7 @@ class test_dao(unittest.TestCase):
         loginJSON = {"username":"user","password":"pass"}
         datagen_dao.login()
         response = requests.post("http://127.0.0.1:5001", json=loginJSON)
-        assert response == "200"
+        assert response.status_code == "200"
 
 
 if __name__ == "__main__":
