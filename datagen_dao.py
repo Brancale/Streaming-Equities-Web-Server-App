@@ -13,9 +13,12 @@ CORS(app)
 sqlHostAddr = 'node6.dbgrads-6eec.internal'
 sqlRootPass = 'E3kWrJQRpNmytMNK'
 
-@app.route("/webserver_to_dao", methods=['GET', 'POST'])
+@app.route("/webserver_to_dao", methods=['GET'])
 def deal_with_query():
+    # collect JSON with query
     data = request.json
+
+    # Connect to DB and run query
     connection = mysql.connector.connect(host=sqlHostAddr,
                                          database='mydb',
                                          user='root',
@@ -23,7 +26,13 @@ def deal_with_query():
     cursor = connection.cursor()
     query = data['query']
 
-    cursor.execute(query)
+    # Collect results of query
+    results = cursor.execute(query)
+
+    # Close DB connection and return record with rows
+    cursor.close()
+    connection.close()
+    return results, 200
 
 @app.route("/login", methods=['GET'])
 def login():
@@ -131,6 +140,5 @@ def stream_to_sql(jsonData, connection, cursor):
 
 
 def boot_app():
-    # app.run(debug=True, threaded=True, host='127.0.0.1', port='5001')
-    app.run(debug=True, threaded=True, host='0.0.0.0', port='5000')
+    app.run(debug=True, threaded=True, host='0.0.0.0', port='7000')
 
