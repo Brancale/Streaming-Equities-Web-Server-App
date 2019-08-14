@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import MyComponent from './MyComponent';
+import MyComponent from './Components/MyComponent';
 import axios from 'axios';
-import ExtendedComponent from './ExtendedComponent';
+import ExtendedComponent from './Components/ExtendedComponent';
+import Axios from 'axios'
 
 
 //username = document.getElementById("name").value;
@@ -9,19 +10,18 @@ import ExtendedComponent from './ExtendedComponent';
 
 //alert(username);
 //alert(password);
+let user="";
+let pwd="";
 
 class User{
   constructor(){
     this.userName ="";
     this.password = "";
-    this.isAutorised = false;
-    this.role = "";
-
   }
   
 }
 
-async function makePostRequest() {
+function makePostRequest() {
 
   var data = {
     "username": user.value,
@@ -41,24 +41,19 @@ async function makePostRequest() {
     });
 }
 
-function submitLogin(e) {
+function  submitLogin(e) {
   e.preventDefault();
-  console.log("1")
   
   user = document.getElementById("username");
-  console.log("2")
   pwd = document.getElementById("password");
-  console.log("3")
-  return makePostRequest()
+  var result = makePostRequest();
+  return result;
 }
-
-let user="";
-let pwd="";
 
 function App() {
   const [authorised, setAuthorised] = useState(false);
 
-  const handleAuthorisedChange =  (e) => {
+  const  handleAuthorisedChange =  (e) => {
 
     var isAuthorised = submitLogin(e);
     if (isAuthorised){
