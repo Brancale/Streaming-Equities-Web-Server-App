@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 
-function PeriodComponent({getSelectedParams, data}){
+function PeriodComponent({ getSelectedParams, data }) {
 
-    return(
-        <tr>
-                <th>
-                  Period start:
+  return (
+    <tr>
+      <th>
+        Period start:
              </th>
-                <th>
-                  <input type="date" id="periodStart" />
-                </th>
-                <th>
-                  Period end:
+      <th>
+        <input type="date" id="periodStart" />
+      </th>
+      <th>
+        Period end:
              </th>
-                <th>
-                  <input type="date" id="periodEnd" />
-                </th>
-              </tr>
-    )
+      <th>
+        <input type="date" id="periodEnd" />
+      </th>
+    </tr>
+  )
 }
 
 export default PeriodComponent;

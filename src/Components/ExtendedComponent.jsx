@@ -1,70 +1,61 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
-import MyComponent from './MyComponent';
 import HistoricalDataComponent from './HistoricalDataComponent';
-import ReactDOM from 'react-dom';
-import { Line, Bar } from 'react-chartjs-2';
 import "../chart.css";
-import RealisedProfitLossComponent from './RealisedProfitLossComponent'; 
+import RealisedProfitLossComponent from './RealisedProfitLossComponent';
 import AverageBuySellComponent from './AverageBuySellComponent';
 
-var instrumentType = "";
-var selectedPeriodStart = "";
-var selectedPeriodEnd = "";
-var counterpartySelect = "";
-var data;
 
-
-
-
-// function goToAdvAnPage(e) {
-//   e.preventDefault();
-//   ReactDOM.render(<AdvancedAnalyticsComponent />, document.getElementById('root'))
-
-// }
-
-
-function getSelectedParams(e) {
-  e.preventDefault();
-  console.log("send req")
-  var selectedOption = document.getElementById("instrumentSelect");
-  instrumentType = selectedOption.value;
-
-  selectedPeriodStart = document.getElementById("periodStart").value;
-  selectedPeriodEnd = document.getElementById("periodEnd").value;
-
-  counterpartySelect = document.getElementById("counterpartySelect").value;
-  makePostRequestQuery();
-}
-// todo DRY
-async function makePostRequestQuery() {
-
-
-  var data = {
-    "instrumentType": instrumentType,
-    "periodStart": selectedPeriodStart,
-    "periodEnd": selectedPeriodEnd,
-    "counterpartySelect": counterpartySelect
-  };
-  axios.post('http://127.0.0.1:5001/query', data)
-    .then((response) => {
-      console.log("ok");
-    })
-    .catch((error) => {
-      console.log("error");
-      alert("this is an error");
-    });
-}
-
-function ExtendedComponent(props){
+function ExtendedComponent(props) {
 
 
   function logOut(e) {
     props.history.push("/")
-  
   }
 
-  let data = {
+
+  // todo to class
+  var instrumentType = "";
+  var selectedPeriodStart = "";
+  var selectedPeriodEnd = "";
+  var counterpartySelect = "";
+
+  function onClick(e) {
+
+    e.preventDefault();
+    console.log("send req")
+    var selectedOption = document.getElementById("instrumentSelect");
+    instrumentType = selectedOption.value;
+
+    selectedPeriodStart = document.getElementById("periodStart").value;
+    selectedPeriodEnd = document.getElementById("periodEnd").value;
+
+    counterpartySelect = document.getElementById("counterpartySelect").value;
+    makePostRequestQuery();
+  }
+
+  async function makePostRequestQuery() {
+
+
+    var data = {
+      "instrumentType": instrumentType,
+      "periodStart": selectedPeriodStart,
+      "periodEnd": selectedPeriodEnd,
+      "counterpartySelect": counterpartySelect
+    };
+    axios.post('http://127.0.0.1:5001/query', data)
+      .then((response) => {
+        console.log("ok");
+      })
+      .catch((error) => {
+        console.log("error");
+        alert("this is an error");
+      });
+  }
+
+  //#region 
+
+  let historicalData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', '1', '2', '3', '4', '5'],
     // labels: data.labels
     datasets: [
@@ -92,6 +83,9 @@ function ExtendedComponent(props){
       }
     ]
   };
+  //#endregion
+
+  //#region
 
   let dataRealizedProfitLoss = {
     labels: ['Lewis', 'Richard'],
@@ -145,6 +139,10 @@ function ExtendedComponent(props){
     ]
   };
 
+  //#endregion
+
+  //#region
+
   let dataAverageBuySellPrices = {
     labels: ['Lewis', 'Richard'],
     // labels: data.labels
@@ -192,11 +190,11 @@ function ExtendedComponent(props){
         pointHitRadius: 10,
         data: [14, 19],
 
-        //data : data.data
       }
     ]
   };
 
+  //#endregion
 
   return (
 
@@ -205,9 +203,6 @@ function ExtendedComponent(props){
         <form id="formNavig">
           <table>
             <tbody>
-              {/* <tr>
-                <button id="advancedAnalytics" onClick={goToAdvAnPage}>Go to Advanced analitics</button>
-              </tr> */}
               <tr>
                 <button id="logOut" onClick={logOut}>Log out</button>
               </tr>
@@ -215,10 +210,10 @@ function ExtendedComponent(props){
           </table>
         </form>
       </div>
-    
-      <HistoricalDataComponent/>
-      <RealisedProfitLossComponent/>
-      <AverageBuySellComponent/>
+
+      <HistoricalDataComponent onClick={onClick} data={historicalData} />
+      <RealisedProfitLossComponent onClick={onClick} data={dataRealizedProfitLoss} />
+      <AverageBuySellComponent onClick={onClick} data={dataAverageBuySellPrices} />
 
     </div>
   );

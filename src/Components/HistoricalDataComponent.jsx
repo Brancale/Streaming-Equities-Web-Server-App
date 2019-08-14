@@ -1,51 +1,37 @@
-import React, { Component } from 'react';
-import PeriodComponent from './PeriodComponent'; 
-import { Line, Bar } from 'react-chartjs-2';
+import React  from 'react';
+import PeriodComponent from './PeriodComponent';
+import InstrumentComponent from './InstrumentComponent'
+import SelectButtonComponent from './SelectButtonComponent'
+import CounterpartyComponent from './CounterpartyComponent'
+import { Line } from 'react-chartjs-2';
 
-function HistoricalDataComponent({getSelectedParams, data}){
 
-    return(       
-      <div className="chart" align="left" id="formChart" type="text/css" href="chart.css">
-      
+function HistoricalDataComponent({ onClick, data }) {
+
+  return (
+    <div className="chart" align="left" id="formChart" type="text/css" href="chart.css">
+
       <form id="formParams"  >
         <table id="tableParams" className="tableParams" align="left" cellspacing="0" >
           <tbody>
-            <PeriodComponent/>
+            <PeriodComponent />
             <tr>
               <th>
                 Instrument type:
-           </th>
+             </th>
               <th>
-                <select id="instrumentSelect">
-                  <option>Astronomica</option>
-                  <option>Borealis</option>
-                  <option>Celestial</option>
-                  <option>Deuteronic</option>
-                  <option>Eclipse</option>
-                  <option>Floral</option>
-                  <option>Galactia</option>
-                  <option>Heliosphere</option>
-                  <option>Interstella</option>
-                  <option>Jupiter</option>
-                  <option>Koronis</option>
-                  <option>Lunatic</option>
-                </select>
+                <InstrumentComponent />
               </th>
-              <th>Counterparty</th>
+
+              <th>Counterparty:</th>
               <th>
-                <select id="counterpartySelect">
-                  <option>Lewis</option>
-                  <option>Selvyn</option>
-                  <option>Richard</option>
-                  <option>Lina</option>
-                  <option>John</option>
-                  <option>Nidia</option>
-                </select>
+                <CounterpartyComponent />
               </th>
+
             </tr>
             <tr>
               <th>
-                <button id="getParams" onClick={getSelectedParams}>Select</button> 
+                <SelectButtonComponent onClick={onClick} />
               </th>
             </tr>
           </tbody>
@@ -55,7 +41,7 @@ function HistoricalDataComponent({getSelectedParams, data}){
       <Line data={data}>
       </Line>
     </div>
-    );
+  );
 }
 
 export default HistoricalDataComponent;
