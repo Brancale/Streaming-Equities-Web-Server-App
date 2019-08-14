@@ -12,22 +12,15 @@ function HistoricalDataComponent({ onClick, data }) {
     <div className="chart" align="left" id="formChart" type="text/css" href="chart.css">
 
       <form id="formParams"  >
-        <table id="tableParams" className="tableParams" align="left" cellspacing="0" >
+        <table id="tableParams" className="tableParams" align="left" cellSpacing="0" >
           <tbody>
             <PeriodComponent />
             <tr>
-              <th>
-                Instrument type:
-             </th>
-              <th>
+                <h4>Instrument type:</h4>
                 <InstrumentComponent />
-              </th>
 
-              <th>Counterparty:</th>
-              <th>
+              <h4>Counterparty:</h4>
                 <CounterpartyComponent />
-              </th>
-
             </tr>
             <tr>
               <th>

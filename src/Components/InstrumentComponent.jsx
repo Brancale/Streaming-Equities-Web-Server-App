@@ -2,7 +2,6 @@ import React  from 'react';
 
 function InstrumentComponent() {
     return (
-        <td>
             <th>
                 <select id="instrumentSelect">
                     <option>Astronomica</option>
@@ -20,7 +19,6 @@ function InstrumentComponent() {
 
                 </select>
             </th>
-        </td>
     )
 }
 

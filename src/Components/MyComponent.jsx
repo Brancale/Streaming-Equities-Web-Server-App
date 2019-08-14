@@ -60,7 +60,7 @@ function MyComponent(props) {
             <th>
               <button id="submit" onClick={onClick}>Submit</button>
             </th>
-            <th>
+            <th>            
               <font text id='errorText' color='red'></font>
             </th>
           </tr>

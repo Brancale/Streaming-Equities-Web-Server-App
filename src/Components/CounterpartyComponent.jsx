@@ -2,7 +2,6 @@ import React  from 'react';
 
 function CounterpartyComponent(){
     return (
-        <td>
               <th>
                 <select id="counterpartySelect">
                   <option>Lewis</option>
@@ -13,7 +12,6 @@ function CounterpartyComponent(){
                   <option>Nidia</option>
                 </select>
               </th>
-        </td>
     )
 }
 
