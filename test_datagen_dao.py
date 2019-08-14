@@ -26,12 +26,12 @@ class test_dao(unittest.TestCase):
     def test_auth_Trader(self):
         loginJSON = {"username":"James","password":"pwd"}
         response = requests.post("http://127.0.0.1:5000/login", json=loginJSON)
-        assert response.text == {'type':'Trader'}
+        assert response.args.get('type', None) == 'Trader'
 
     def test_auth_Senior_Trader(self):
         loginJSON = {"username":"Jools","password":"pwd"}
         response = requests.post("http://127.0.0.1:5000/login", json=loginJSON)
-        assert response.text == {'type':'Senior Trader'}
+        assert response.args.get('type', None) == 'Senior Trader'
 
 
 if __name__ == "__main__":
