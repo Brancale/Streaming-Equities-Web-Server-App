@@ -48,6 +48,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Deals` (
   FOREIGN KEY(instrumentName) REFERENCES `mydb`.`Instruments`(`instrumentName`))
 ENGINE = InnoDB;
 
+DROP TABLE IF EXISTS Roles;
+-- -----------------------------------------------------
+-- Table `mydb`.`Roles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Roles` (
+  `roleId` INT NOT NULL,
+  `roleName` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`roleId`))
+ENGINE = InnoDB;
+
 DROP TABLE IF EXISTS Users;
 -- -----------------------------------------------------
 -- Table `mydb`.`Users`
@@ -55,7 +65,9 @@ DROP TABLE IF EXISTS Users;
 CREATE TABLE IF NOT EXISTS `mydb`.`Users` (
   `userId` VARCHAR(20) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`userId`))
+  `roleId` INT NOT NULL,
+  PRIMARY KEY (`userId`),
+  FOREIGN KEY(roleId) REFERENCES `mydb`.`Roles`(`roleId`))
 ENGINE = InnoDB;
 
 
