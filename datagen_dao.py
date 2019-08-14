@@ -129,7 +129,6 @@ def stream_to_sql(jsonData, connection, cursor):
     print("Record inserted successfully into Deals table")
 
 
-def query_database(jsonData, query_string):
 
 def boot_app():
     # app.run(debug=True, threaded=True, host='127.0.0.1', port='5001')
