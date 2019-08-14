@@ -8,16 +8,19 @@ import { BrowserRouter as Router, Route} from 'react-router-dom'
 import ExtendedComponent from './Components/ExtendedComponent';
 import MyComponent from './Components/MyComponent';
 
-// ReactDOM.render(<App />, document.getElementById('root'));
 const history = createBrowserHistory();
-ReactDOM.render(
-    <Router history={history} >
-      <Route path="/" component={App} />
-      <Route path="/chart" component={ExtendedComponent} />
+ReactDOM.render(<Router history={history} >
+    <App />
+</Router>, document.getElementById('root'));
+// const history = createBrowserHistory();
+// ReactDOM.render(
+//     <Router history={history} >
+//       <Route path="/" component={App} />
+//       <Route path="/chart" component={ExtendedComponent} />
   
-    </Router>,
-    document.getElementById('root')
-  );
+//     </Router>,
+//     document.getElementById('root')
+//   );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

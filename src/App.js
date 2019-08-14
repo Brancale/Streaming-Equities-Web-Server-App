@@ -55,7 +55,7 @@ function makePostRequest() {
   
 // }
 
-function App(props) {
+function App() {
   // const [authorised, setAuthorised] = useState(false);
 
   const history = createBrowserHistory();
@@ -63,7 +63,12 @@ function App(props) {
 
 
  return (
-   <MyComponent history={props.history}/>
+   <Router >
+    
+  <Route path="/login" component={MyComponent} />
+  <Route path="/chart" component={ExtendedComponent} />
+
+</Router>
   );
 }
 
