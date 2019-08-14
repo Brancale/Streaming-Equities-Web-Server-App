@@ -13,6 +13,18 @@ CORS(app)
 sqlHostAddr = '192.168.99.100'
 
 
+@app.route("/webserver_to_dao", methods=['GET', 'POST'])
+def deal_with_query():
+    data = request.json
+    connection = mysql.connector.connect(host='192.168.99.100',
+                                         database='mydb',
+                                         user='root',
+                                         password='ppp')
+    cursor = connection.cursor()
+    query = data['query']
+
+    cursor.execute(query)
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     data = request.json
@@ -100,6 +112,8 @@ def disconnect_from_db(connection, cursor):
 
 def stream_to_sql(jsonData, connection, cursor):
 
+
+    # Formats the time
     date_obj = datetime.strptime(jsonData['time'], "%d-%b-%Y (%H:%M:%S.%f)")
     dt = date_obj.strftime("%y-%m-%d %H:%M:%S.%f")
 
@@ -114,10 +128,15 @@ def stream_to_sql(jsonData, connection, cursor):
     print("Record inserted successfully into Deals table")
 
 
+
+def query_database(jsonData, query_string):
+
+
+
+
 def boot_app():
     # app.run(debug=True, threaded=True, host='127.0.0.1', port='5001')
     app.run(debug=True, threaded=True, host='0.0.0.0', port='5000')
 
 
-# if __name__ == "__main__":
-#     app.run(port='5001')
+

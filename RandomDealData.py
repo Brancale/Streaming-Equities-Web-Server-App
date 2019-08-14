@@ -43,15 +43,15 @@ class   RandomDealData:
         deal = {
             'dealId' : self.__dealId,
             'instrumentName' : instrument.getName(),
-            'cpty' : cpty,
-            'price' : instrument.calculateNextPrice(type),
-            'type' : type,
-            'quantity' : quantity,
+            'cpty': cpty,
+            'price': instrument.calculateNextPrice(type),
+            'type': type,
+            'quantity': quantity,
             'time': dealTime.strftime("%d-%b-%Y (%H:%M:%S.%f)"),
-            'hashedValue' : instrument.gethashedValue(),
-            'isNegative' : instrument.getisNegative(),
-            'basePrice' : instrument.getbasePrice(),
-            'drift' : instrument.getdrift(),
-            'variance' : instrument.getvariance()
+            'hashedValue': instrument.gethashedValue(),
+            'isNegative': instrument.getisNegative(),
+            'basePrice': instrument.getbasePrice(),
+            'drift': instrument.getdrift(),
+            'variance': instrument.getvariance()
             }
         return json.dumps(deal)

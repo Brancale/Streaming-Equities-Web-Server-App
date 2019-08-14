@@ -58,6 +58,18 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Users` (
   PRIMARY KEY (`userId`))
 ENGINE = InnoDB;
 
+-- DROP TABLE IF EXISTS Counterparties;
+-- -- -----------------------------------------------------
+-- -- Table `mydb`.`Users`
+-- -- -----------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS `mydb`.`Counterparties` (
+--   `cptyId` INT NOT NULL AUTO_INCREASE,
+--   `cptyNam` VARCHAR(20) NOT NULL,
+--   PRIMARY KEY (`userId`))
+-- ENGINE = InnoDB;
+
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
