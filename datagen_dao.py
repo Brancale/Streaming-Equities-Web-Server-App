@@ -13,17 +13,18 @@ CORS(app)
 sqlHostAddr = '192.168.99.100'
 
 
-@app.route("/login", methods=['GET', 'POST'])
+@app.route("/login", methods=['GET'])
 def login():
-    data = request.json
-    user = as_user(data)
+    username = request.args.get('username', None)
+    password = request.args.get('password', None)
 
-    is_user_authenticated = authenticate_user(user.username, user.password)
+    is_user_authenticated = authenticate_user(username, password)
     if is_user_authenticated == 1:
-        return Response(status=200)
+        params = {"type":"Trader"}
+        return params, 200
     else:
-        return Response(status=401)
-
+        params = {"type": "None"}
+        return params, 401
 
 def authenticate_user(userid, password):
     connection = mysql.connector.connect(host='192.168.99.100',
@@ -121,3 +122,13 @@ def boot_app():
 
 # if __name__ == "__main__":
 #     app.run(port='5001')
+#@app.route("/login", methods=['GET', 'POST'])
+#def login():
+#    data = request.json
+#    user = as_user(data)
+#
+#    is_user_authenticated = authenticate_user(user.username, user.password)
+#    if is_user_authenticated == 1:
+#        return Response(status=200)
+#    else:
+#        return Response(status=401)
