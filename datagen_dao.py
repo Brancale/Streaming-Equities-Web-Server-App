@@ -10,16 +10,16 @@ app = Flask(__name__)
 CORS(app)
 
 
-sqlHostAddr = '192.168.99.100'
-
+sqlHostAddr = 'node6.dbgrads-6eec.internal'
+sqlRootPass = 'E3kWrJQRpNmytMNK'
 
 @app.route("/webserver_to_dao", methods=['GET', 'POST'])
 def deal_with_query():
     data = request.json
-    connection = mysql.connector.connect(host='192.168.99.100',
+    connection = mysql.connector.connect(host=sqlHostAddr,
                                          database='mydb',
                                          user='root',
-                                         password='ppp')
+                                         password=sqlRootPass)
     cursor = connection.cursor()
     query = data['query']
 
@@ -38,10 +38,10 @@ def login():
 
 
 def authenticate_user(userid, password):
-    connection = mysql.connector.connect(host='192.168.99.100',
+    connection = mysql.connector.connect(host=sqlHostAddr,
                                          database='mydb',
                                          user='root',
-                                         password='ppp')
+                                         password=sqlRootPass)
     query = ('SET @userId = "%s", @password ="%s"; ' % (userid, password))
     query += 'SELECT COUNT(1) FROM `Users` WHERE userId = @userId AND password = @password;'
     print(query)
@@ -94,7 +94,7 @@ def connect_to_db():
         connection = mysql.connector.connect(host=sqlHostAddr,
                                              database='mydb',
                                              user='root',
-                                             password='ppp')
+                                             password=sqlRootPass)
         cursor = connection.cursor()
         result = cursor.execute("DELETE FROM Deals")
         return connection, cursor
