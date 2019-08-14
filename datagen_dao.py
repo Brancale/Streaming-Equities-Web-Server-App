@@ -25,17 +25,18 @@ def deal_with_query():
 
     cursor.execute(query)
 
-@app.route("/login", methods=['GET', 'POST'])
+@app.route("/login", methods=['GET'])
 def login():
-    data = request.json
-    user = as_user(data)
+    username = request.args.get('username', None)
+    password = request.args.get('password', None)
 
-    is_user_authenticated = authenticate_user(user.username, user.password)
+    is_user_authenticated = authenticate_user(username, password)
     if is_user_authenticated == 1:
-        return Response(status=200)
+        params = {"type":"Trader"}
+        return params, 200
     else:
-        return Response(status=401)
-
+        params = {"type": "None"}
+        return params, 401
 
 def authenticate_user(userid, password):
     connection = mysql.connector.connect(host=sqlHostAddr,
@@ -128,15 +129,9 @@ def stream_to_sql(jsonData, connection, cursor):
     print("Record inserted successfully into Deals table")
 
 
-
 def query_database(jsonData, query_string):
-
-
-
 
 def boot_app():
     # app.run(debug=True, threaded=True, host='127.0.0.1', port='5001')
     app.run(debug=True, threaded=True, host='0.0.0.0', port='5000')
-
-
 
