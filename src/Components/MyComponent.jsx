@@ -1,9 +1,43 @@
 import React, { useState } from 'react';
-
+import axios from 'axios';
 import ReactDOM from 'react-dom';
 
 
-function MyComponent({onClick}){
+function MyComponent(props){
+
+
+
+  function onClick(e){
+
+    let user="";
+let pwd="";
+
+
+    e.preventDefault();
+  
+  user = document.getElementById("username");
+  pwd = document.getElementById("password");
+
+  var data = {
+    "username": user.value,
+    "password": pwd.value
+  };
+
+    console.log("posting req")
+  axios.post('http://127.0.0.1:5001/login', data)
+    .then((response) => {
+      props.history.push("/chart")
+    })
+    .catch((error) => {
+      
+    document.getElementById("errorText").innerHTML = "Access denied";
+   
+
+    });
+  };
+
+  
+
   
  return (    
         

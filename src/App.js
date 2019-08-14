@@ -3,6 +3,8 @@ import MyComponent from './Components/MyComponent';
 import axios from 'axios';
 import ExtendedComponent from './Components/ExtendedComponent';
 import Axios from 'axios'
+import { createBrowserHistory } from 'history';
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 
 
 //username = document.getElementById("name").value;
@@ -10,8 +12,7 @@ import Axios from 'axios'
 
 //alert(username);
 //alert(password);
-let user="";
-let pwd="";
+
 
 class User{
   constructor(){
@@ -23,49 +24,46 @@ class User{
 
 function makePostRequest() {
 
-  var data = {
-    "username": user.value,
-    "password": pwd.value
-  };
+  // var data = {
+  //   "username": user.value,
+  //   "password": pwd.value
+  // };
 
   console.log("posting req")
-  axios.post('http://127.0.0.1:5001/login', data)
-    .then((response) => {
-      return true;
-    })
-    .catch((error) => {
+  // axios.post('http://127.0.0.1:5001/login', data)
+  //   .then((response) => {
+  //     return true;
+  //   })
+  //   .catch((error) => {
       
-    document.getElementById("errorText").innerHTML = "Access denied";
-    return false;
+  //   document.getElementById("errorText").innerHTML = "Access denied";
+  //   return false;
 
-    });
+  //   });
+
+  // var xhr = new XMLHttpRequest();
+  // var url = 'http://127.0.0.1:5001/login';
+  // xhr.open("POST", url, true);
+  // xhr.setRequestHeader("Content-Type", "application/json");
+  // xhr.send(data);
+
 }
 
-function  submitLogin(e) {
-  e.preventDefault();
+// function  submitLogin(e) {
   
-  user = document.getElementById("username");
-  pwd = document.getElementById("password");
-  var result = makePostRequest();
-  return result;
-}
 
-function App() {
-  const [authorised, setAuthorised] = useState(false);
+  
+// }
 
-  const  handleAuthorisedChange =  (e) => {
+function App(props) {
+  // const [authorised, setAuthorised] = useState(false);
 
-    var isAuthorised = submitLogin(e);
-    if (isAuthorised){
-     setAuthorised(true);
-    }
-  };
+  const history = createBrowserHistory();
+  
 
 
  return (
-  authorised?   
-    <ExtendedComponent/>:
-    <MyComponent onClick={handleAuthorisedChange}/>  
+   <MyComponent history={props.history}/>
   );
 }
 
