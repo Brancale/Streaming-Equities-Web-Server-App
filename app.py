@@ -1,4 +1,3 @@
-import datagenlayer
 import datagen_dao
 
 if __name__ == "__main__":

@@ -115,7 +115,8 @@ def stream_to_sql(jsonData, connection, cursor):
 
 
 def boot_app():
-    app.run(debug=True, threaded=True, host='127.0.0.1', port='5001')
+    # app.run(debug=True, threaded=True, host='127.0.0.1', port='5001')
+    app.run(debug=True, threaded=True, host='0.0.0.0', port='5000')
 
 
 # if __name__ == "__main__":
