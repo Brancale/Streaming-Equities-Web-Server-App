@@ -1,0 +1,15 @@
+.chart{
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    width: 57%;
+    box-shadow: 5px 5px #bdceeb;
+    border-radius: 10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgb(220, 225, 243);
+} 
+
+.header{
+    margin-top: 150px;
+}
