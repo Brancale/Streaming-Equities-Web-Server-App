@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-daoAddr = 'daodatagen'
+daoAddr = 'http://daodatagen'
 daoPortLogin = ':7000/login'
 daoPortQuery = ':7000/webserver_to_dao'
 
