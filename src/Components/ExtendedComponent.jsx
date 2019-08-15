@@ -54,7 +54,7 @@ function ExtendedComponent(props) {
       // "counterpartySelect": counterpartySelect
     };
     //http://127.0.0.1:5001/query
-    axios.get('http://webserver:5001/query', { params: data })
+    axios.get('webserver:5001/query', { params: data })
       .then((response) => {
         var data = response.data;
         var msg = data['msg'];
