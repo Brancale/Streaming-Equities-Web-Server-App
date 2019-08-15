@@ -14,8 +14,8 @@ CORS(app)
 
 
 daoAddr = 'daodatagen'
-daoPortLogin = ':7000/login'
-daoPortQuery = ':7000/webserver_to_dao'
+daoPortLogin = ':8080/login'
+daoPortQuery = ':8080/webserver_to_dao'
 
 @app.route("/login", methods=['GET'])
 def login():
@@ -119,4 +119,4 @@ def stream_to_sql(jsonData, connection, cursor):
 
 
 def boot_app():
-    app.run(debug=True, threaded=True, host='0.0.0.0', port='5001')
+    app.run(debug=True, threaded=True, host='0.0.0.0', port='8080')
