@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-daoAddr = 'daodatagen'
+daoAddr = 'http://daodatagen-group15.apps.dbgrads-6eec.openshiftworkshop.com/'
 daoPortLogin = ':8080/login'
 daoPortQuery = ':8080/webserver_to_dao'
 
