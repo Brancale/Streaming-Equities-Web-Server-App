@@ -10,7 +10,7 @@ function RealisedProfitLossComponent({onClick, data, name}){
         <table id="tableParams" className="tableParams" align="left" cellSpacing="0" >
           <tbody>           
           <PeriodComponent name={name} />
-          <SelectButtonComponent onClick={onClick} />
+          <SelectButtonComponent name={name} onClick={onClick} />
           </tbody>
         </table>
       </form>
@@ -22,5 +22,6 @@ function RealisedProfitLossComponent({onClick, data, name}){
       </div>
     );
 }
+
 
 export default RealisedProfitLossComponent;
