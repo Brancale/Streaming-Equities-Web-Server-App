@@ -43,7 +43,7 @@ function ExtendedComponent(props) {
       "periodEnd": selectedPeriodEnd,
       "counterpartySelect": counterpartySelect
     };
-    axios.post('http://127.0.0.1:5001/query', data)
+    axios.post('http://webserver:5001/query', data)
       .then((response) => {
         console.log("ok");
       })
