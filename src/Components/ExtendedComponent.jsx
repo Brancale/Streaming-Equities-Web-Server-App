@@ -15,7 +15,11 @@ function ExtendedComponent(props) {
   }
 
 
+  // todo to class
   var instrumentType = "";
+  // var operation = "";
+  // var selectedPeriodStart = "";
+  // var selectedPeriodEnd = "";
   var counterpartySelect = "";
   
   //var dataAverageBuySellPrices = {}
@@ -190,7 +194,118 @@ function ExtendedComponent(props) {
       }
     ]
   };
-  
+  //#endregion
+
+  //#region
+
+  // let dataRealizedProfitLoss = {
+  //   labels: ['Lewis', 'Richard'],
+  //   // labels: data.labels
+  //   datasets: [
+  //     {
+  //       label: 'Avg Sell Prices',
+  //       fill: false,
+  //       lineTension: 0.1,
+  //       backgroundColor: 'rgba(80,200,120,0.4)',
+        // borderColor: 'rgba(80,200,120,1)',
+        // borderCapStyle: 'butt',
+        // borderDash: [],
+        // borderDashOffset: 0.0,
+        // borderJoinStyle: 'miter',
+        // pointBorderColor: 'rgba(80,200,120,1)',
+        // pointBackgroundColor: '#fff',
+        // pointBorderWidth: 1,
+        // pointHoverRadius: 5,
+        // pointHoverBackgroundColor: 'rgba(80,200,120,1)',
+      //   pointHoverBorderColor: 'rgba(80,200,120,1)',
+      //   pointHoverBorderWidth: 2,
+      //   pointRadius: 1,
+      //   pointHitRadius: 10,
+      //   data: [65, 59]
+      //   //data : data.data
+      // },
+      // {
+      //   label: 'Avg Buy Prices',
+      //   fill: false,
+      //   lineTension: 0.1,
+      //   backgroundColor: 'rgba(243,71,35,0.4)',
+        // borderColor: 'rgba(243,71,35,1)',
+        // borderCapStyle: 'butt',
+        // borderDash: [],
+        // borderDashOffset: 0.0,
+        // borderJoinStyle: 'miter',
+        // pointBorderColor: 'rgba(243,71,35,1)',
+        // pointBackgroundColor: '#fff',
+        // pointBorderWidth: 1,
+        // pointHoverRadius: 5,
+        // pointHoverBackgroundColor: 'rgba(243,71,35,1)',
+        // pointHoverBorderColor: 'rgba(243,71,35,1)',
+        // pointHoverBorderWidth: 2,
+        // pointRadius: 1,
+        // pointHitRadius: 10,
+        // data: [-14, 19],
+
+     //   // data : data.data
+  //     }
+  //   ]
+  // };
+
+  //#endregion
+
+  // #region
+
+  //  dataAverageBuySellPrices = {
+  //   labels: ['Lewis', 'Richard'],
+  //   // labels: data.labels
+  //   datasets: [
+  //     {
+  //       label: 'Historical data profit',
+  //       fill: false,
+  //       lineTension: 0.1,
+  //       backgroundColor: 'rgba(80,200,120,0.4)',
+  //       borderColor: 'rgba(80,200,120,1)',
+      //   borderCapStyle: 'butt',
+      //   borderDash: [],
+      //   borderDashOffset: 0.0,
+      //   borderJoinStyle: 'miter',
+      //   pointBorderColor: 'rgba(80,200,120,1)',
+      //   pointBackgroundColor: '#fff',
+      //   pointBorderWidth: 1,
+      //   pointHoverRadius: 5,
+      //   pointHoverBackgroundColor: 'rgba(80,200,120,1)',
+      //   pointHoverBorderColor: 'rgba(80,200,120,1)',
+      //   pointHoverBorderWidth: 2,
+      //   pointRadius: 1,
+      //   pointHitRadius: 10,
+      //   data: [65, 59]
+      //   //data : data.data
+      // },
+      // {
+      //   label: 'Historical data loss',
+      //   fill: false,
+      //   lineTension: 0.1,
+      //   backgroundColor: 'rgba(243,71,35,0.4)',
+  //       borderColor: 'rgba(243,71,35,1)',
+  //       borderCapStyle: 'butt',
+  //       borderDash: [],
+  //       borderDashOffset: 0.0,
+  //       borderJoinStyle: 'miter',
+  //       pointBorderColor: 'rgba(243,71,35,1)',
+  //       pointBackgroundColor: '#fff',
+  //       pointBorderWidth: 1,
+  //       pointHoverRadius: 5,
+  //       pointHoverBackgroundColor: 'rgba(243,71,35,1)',
+  //       pointHoverBorderColor: 'rgba(243,71,35,1)',
+  //       pointHoverBorderWidth: 2,
+  //       pointRadius: 1,
+  //       pointHitRadius: 10,
+  //       data: [14, 19],
+
+  //     }
+  //   ]
+  // };
+
+  //#endregion
 
   return (
 
