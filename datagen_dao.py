@@ -10,12 +10,14 @@ app = Flask(__name__)
 CORS(app)
 
 
-# sqlHostAddr = '192.168.0.78'
-# sqlRootPass = 'E3kWrJQRpNmytMNK'
-# sqlHostAddr = '192.168.99.100'
-# sqlRootPass = 'ppp'
 sqlHostAddr = 'mysql'
 sqlRootPass = 'E3kWrJQRpNmytMNK'
+
+
+# sqlHostAddr='192.168.99.100'
+# sqlRootPass = 'ppp'
+
+
 @app.route("/webserver_to_dao", methods=['GET'])
 def deal_with_query():
     # collect JSON with query
@@ -109,7 +111,7 @@ def connect_to_db():
                                              user='root',
                                              password=sqlRootPass)
         cursor = connection.cursor()
-        result = cursor.execute("DELETE FROM Deals")
+        # result = cursor.execute("DELETE FROM Deals")
         return connection, cursor
     except mysql.connector.Error as error:
         connection.rollback()  # rollback if any exception occurred
@@ -125,20 +127,24 @@ def disconnect_from_db(connection, cursor):
 
 def stream_to_sql(jsonData, connection, cursor):
 
+    try:
+        # Formats the time
+        date_obj = datetime.strptime(jsonData['time'], "%d-%b-%Y (%H:%M:%S.%f)")
+        dt = date_obj.strftime("%y-%m-%d %H:%M:%S.%f")
 
-    # Formats the time
-    date_obj = datetime.strptime(jsonData['time'], "%d-%b-%Y (%H:%M:%S.%f)")
-    dt = date_obj.strftime("%y-%m-%d %H:%M:%S.%f")
+        sql_insert_query = " INSERT INTO Deals " \
+                       " (dealId, `instrumentName`, `cpty`, `price`, `type`, `quantity`, `time`) " \
+                       ' VALUES (' + str(jsonData['dealId']) + ' , "'+ jsonData['instrumentName'] + '","' \
+                           + jsonData['cpty']+ '",' + str(jsonData['price']) + ',"' + jsonData['type'] + '",'\
+                           +  str(jsonData['quantity'])\
+                           + ',"' + str(dt) + '");'
+        result = cursor.execute(sql_insert_query)
 
-    sql_insert_query = " INSERT INTO Deals " \
-                   " (dealId, `instrumentName`, `cpty`, `price`, `type`, `quantity`, `time`) " \
-                   ' VALUES (' + str(jsonData['dealId']) + ' , "'+ jsonData['instrumentName'] + '","' \
-                       + jsonData['cpty']+ '",' + str(jsonData['price']) + ',"' + jsonData['type'] + '",' +  str(jsonData['quantity'])\
-                       + ',"' + str(dt) + '");'
-    result = cursor.execute(sql_insert_query)
-
-    connection.commit()
-    print("Record inserted successfully into Deals table")
+        connection.commit()
+        print("Record inserted successfully into Deals table")
+    except:
+        print('skip. Deal ID exists')
+        print(jsonData['dealId'])
 
 
 
