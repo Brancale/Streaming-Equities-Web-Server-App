@@ -30,7 +30,7 @@ function HistoricalDataComponent({ onClick, data, name }) {
           </tbody>
         </table>
       </form>
-      <h2 className="header" type="text/css" href="chart.css">Histirocal data</h2>
+      <h2 className="header" type="text/css" href="chart.css">Historical data</h2>
       <Line data={data}>
       </Line>
     </div>
