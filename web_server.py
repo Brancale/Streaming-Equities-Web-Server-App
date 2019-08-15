@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-daoAddr = 'http://127.0.0.1'
+daoAddr = 'test'
 daoPortLogin = ':7000/login'
 daoPortQuery = ':7000/webserver_to_dao'
 
@@ -119,4 +119,4 @@ def stream_to_sql(jsonData, connection, cursor):
 
 
 def boot_app():
-    app.run(debug=True, threaded=True, host='127.0.0.1', port='5001')
+    app.run(debug=True, threaded=True, host='0.0.0.0', port='5001')
