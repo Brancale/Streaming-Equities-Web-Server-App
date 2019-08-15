@@ -11,11 +11,11 @@ function AverageBuySellComponent({ onClick, data, name }) {
         <table id="tableParams" className="tableParams" align="left" cellSpacing="0" >
           <tbody>
             <PeriodComponent name={name} />
-            <SelectButtonComponent onClick={onClick} />
+            <SelectButtonComponent name={name} onClick={onClick} />
           </tbody>
         </table>
       </form>
-      <h2>Average Buy&Sell prices</h2>
+      <h2>Average Buy & Sell prices</h2>
       <Bar data={data}>
 
       </Bar>
