@@ -21,7 +21,7 @@ function ExtendedComponent(props) {
   // var selectedPeriodStart = "";
   // var selectedPeriodEnd = "";
   var counterpartySelect = "";
-  
+
   //var dataAverageBuySellPrices = {}
   const [dataAverageBuySellPrices, setDataAverageBuySellPrices] = useState(
     {}
@@ -35,9 +35,9 @@ function ExtendedComponent(props) {
 
   function onClick(e) {
 
-    var name = e.currentTarget.name;    
+    var name = e.currentTarget.name;
     e.preventDefault();
-    
+
     var operation = name;
     // instrumentType = selectedOption.value;
     var selectedPeriodStart = document.getElementsByName(name)[0].value;
@@ -61,19 +61,19 @@ function ExtendedComponent(props) {
       // "counterpartySelect": counterpartySelect
     };
     //http://127.0.0.1:5001/query
-    axios.get('http://127.0.0.1:5001/query', { params: data })
+    axios.get('webserver/query', { params: data })
       .then((response) => {
         var data = response.data;
         var msg = data['msg'];
-        
-        var labels = msg['labels']; 
+
+        var labels = msg['labels'];
         var operationType = msg['operationType'];
 
         if (operationType=="avgSellPrices"){
-          var buys = msg['Buys']; 
-        var sells = msg['Sells']; 
+          var buys = msg['Buys'];
+        var sells = msg['Sells'];
 
-        const handleChange = () => 
+        const handleChange = () =>
         setDataAverageBuySellPrices({
           labels: labels,
           datasets:[
@@ -117,14 +117,14 @@ function ExtendedComponent(props) {
             data:sells}
 
           ]
-         
+
         }
-        
+
         )
         handleChange(); }
         else if (operationType=="lossAndProfit"){
-          var Profits = msg['Profits']; 
-        const handleChange = () => 
+          var Profits = msg['Profits'];
+        const handleChange = () =>
         setDataRealizedProfitLoss({
           labels: labels,
           datasets:[
@@ -149,14 +149,14 @@ function ExtendedComponent(props) {
             data:Profits}
 
           ]
-         
+
         }
-        
+
         )
-        handleChange(); 
-      }       
-        
-        
+        handleChange();
+      }
+
+
       })
       .catch((error) => {
         console.log("error");
@@ -164,7 +164,7 @@ function ExtendedComponent(props) {
       });
   }
 
-  //#region 
+  //#region
 
   let historicalData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', '1', '2', '3', '4', '5'],
@@ -315,7 +315,7 @@ function ExtendedComponent(props) {
           <table>
             <tbody>
               <tr>
-                
+
                 <th><button id="logOut" onClick={logOut}>Log out</button></th>
 
 
