@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import HistoricalDataComponent from './HistoricalDataComponent';
 import "../chart.css";
 import RealisedProfitLossComponent from './RealisedProfitLossComponent';
 import AverageBuySellComponent from './AverageBuySellComponent';
+import MyComponent from './MyComponent';
 
 
 function ExtendedComponent(props) {
@@ -19,6 +20,12 @@ function ExtendedComponent(props) {
   var selectedPeriodStart = "";
   var selectedPeriodEnd = "";
   var counterpartySelect = "";
+  
+  //var dataAverageBuySellPrices = {}
+  const [dataAverageBuySellPrices, setDataAverageBuySellPrices] = useState(
+    {}
+  );
+
 
   function onClick(e) {
 
@@ -27,8 +34,8 @@ function ExtendedComponent(props) {
     var selectedOption = document.getElementById("instrumentSelect");
     instrumentType = selectedOption.value;
 
-    selectedPeriodStart = document.getElementById("periodStart").value;
-    selectedPeriodEnd = document.getElementById("periodEnd").value;
+    selectedPeriodStart = document.getElementsByName("avgSellPrices")[0].value;
+    selectedPeriodEnd = document.getElementsByName("avgSellPrices")[1].value;
 
     counterpartySelect = document.getElementById("counterpartySelect").value;
     makePostRequestQuery();
@@ -38,14 +45,69 @@ function ExtendedComponent(props) {
 
 
     var data = {
-      "instrumentType": instrumentType,
+      "operation": "avgSellPrices",
+      "params": {
       "periodStart": selectedPeriodStart,
-      "periodEnd": selectedPeriodEnd,
-      "counterpartySelect": counterpartySelect
+      "periodEnd": selectedPeriodEnd
+      }
+      // ,
+      // "counterpartySelect": counterpartySelect
     };
-    axios.post('http://127.0.0.1:5001/query', data)
+    axios.get('http://127.0.0.1:5001/query', { params: data })
       .then((response) => {
-        console.log("ok");
+        var data = response.data;
+        var msg = data['msg'];
+        var buys = msg['Buys']; 
+        var sells = msg['Sells']; 
+        var labels = msg['labels']; 
+        const handleChange = () => 
+        setDataAverageBuySellPrices({
+          labels: labels,
+          datasets:[
+            {label: 'Avg Buy Prices',
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: 'rgba(80,200,120,0.4)',
+            borderColor: 'rgba(80,200,120,1)',
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: 'rgba(80,200,120,1)',
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(80,200,120,1)',
+            pointHoverBorderColor: 'rgba(80,200,120,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data:buys},
+            {label: 'Avg Sell Prices',
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: 'rgba(243,71,35,0.4)',
+            borderColor: 'rgba(243,71,35,1)',
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: 'rgba(243,71,35,1)',
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(243,71,35,1)',
+            pointHoverBorderColor: 'rgba(243,71,35,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data:sells}
+
+          ]
+        }
+        )
+        handleChange();
+        console.log(dataAverageBuySellPrices)
       })
       .catch((error) => {
         console.log("error");
@@ -92,7 +154,7 @@ function ExtendedComponent(props) {
     // labels: data.labels
     datasets: [
       {
-        label: 'Historical data profit',
+        label: 'Avg Sell Prices',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(80,200,120,0.4)',
@@ -114,7 +176,7 @@ function ExtendedComponent(props) {
         //data : data.data
       },
       {
-        label: 'Historical data loss',
+        label: 'Avg Buy Prices',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(243,71,35,0.4)',
@@ -141,58 +203,58 @@ function ExtendedComponent(props) {
 
   //#endregion
 
-  //#region
+  // #region
 
-  let dataAverageBuySellPrices = {
-    labels: ['Lewis', 'Richard'],
-    // labels: data.labels
-    datasets: [
-      {
-        label: 'Historical data profit',
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor: 'rgba(80,200,120,0.4)',
-        borderColor: 'rgba(80,200,120,1)',
-        borderCapStyle: 'butt',
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderColor: 'rgba(80,200,120,1)',
-        pointBackgroundColor: '#fff',
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: 'rgba(80,200,120,1)',
-        pointHoverBorderColor: 'rgba(80,200,120,1)',
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        data: [65, 59]
-        //data : data.data
-      },
-      {
-        label: 'Historical data loss',
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor: 'rgba(243,71,35,0.4)',
-        borderColor: 'rgba(243,71,35,1)',
-        borderCapStyle: 'butt',
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderColor: 'rgba(243,71,35,1)',
-        pointBackgroundColor: '#fff',
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: 'rgba(243,71,35,1)',
-        pointHoverBorderColor: 'rgba(243,71,35,1)',
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        data: [14, 19],
+  //  dataAverageBuySellPrices = {
+  //   labels: ['Lewis', 'Richard'],
+  //   // labels: data.labels
+  //   datasets: [
+  //     {
+  //       label: 'Historical data profit',
+  //       fill: false,
+  //       lineTension: 0.1,
+  //       backgroundColor: 'rgba(80,200,120,0.4)',
+  //       borderColor: 'rgba(80,200,120,1)',
+      //   borderCapStyle: 'butt',
+      //   borderDash: [],
+      //   borderDashOffset: 0.0,
+      //   borderJoinStyle: 'miter',
+      //   pointBorderColor: 'rgba(80,200,120,1)',
+      //   pointBackgroundColor: '#fff',
+      //   pointBorderWidth: 1,
+      //   pointHoverRadius: 5,
+      //   pointHoverBackgroundColor: 'rgba(80,200,120,1)',
+      //   pointHoverBorderColor: 'rgba(80,200,120,1)',
+      //   pointHoverBorderWidth: 2,
+      //   pointRadius: 1,
+      //   pointHitRadius: 10,
+      //   data: [65, 59]
+      //   //data : data.data
+      // },
+      // {
+      //   label: 'Historical data loss',
+      //   fill: false,
+      //   lineTension: 0.1,
+      //   backgroundColor: 'rgba(243,71,35,0.4)',
+  //       borderColor: 'rgba(243,71,35,1)',
+  //       borderCapStyle: 'butt',
+  //       borderDash: [],
+  //       borderDashOffset: 0.0,
+  //       borderJoinStyle: 'miter',
+  //       pointBorderColor: 'rgba(243,71,35,1)',
+  //       pointBackgroundColor: '#fff',
+  //       pointBorderWidth: 1,
+  //       pointHoverRadius: 5,
+  //       pointHoverBackgroundColor: 'rgba(243,71,35,1)',
+  //       pointHoverBorderColor: 'rgba(243,71,35,1)',
+  //       pointHoverBorderWidth: 2,
+  //       pointRadius: 1,
+  //       pointHitRadius: 10,
+  //       data: [14, 19],
 
-      }
-    ]
-  };
+  //     }
+  //   ]
+  // };
 
   //#endregion
 
@@ -204,16 +266,19 @@ function ExtendedComponent(props) {
           <table>
             <tbody>
               <tr>
-                <button id="logOut" onClick={logOut}>Log out</button>
+                
+                <th><button id="logOut" onClick={logOut}>Log out</button></th>
+
+
               </tr>
             </tbody>
           </table>
         </form>
       </div>
 
-      <HistoricalDataComponent onClick={onClick} data={historicalData} />
-      <RealisedProfitLossComponent onClick={onClick} data={dataRealizedProfitLoss} />
-      <AverageBuySellComponent onClick={onClick} data={dataAverageBuySellPrices} />
+      <HistoricalDataComponent onClick={onClick} data={historicalData} name={"historicalData"} />
+      <RealisedProfitLossComponent onClick={onClick} data={dataRealizedProfitLoss} name={"profitLoss"} />
+      <AverageBuySellComponent onClick={onClick} data={dataAverageBuySellPrices} name={"avgSellPrices"} />
 
     </div>
   );

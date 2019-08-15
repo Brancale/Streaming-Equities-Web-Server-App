@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PeriodComponent({ getSelectedParams, data }) {
+function PeriodComponent({ getSelectedParams, data, name }) {
 
   return (
     <tr>
@@ -8,13 +8,13 @@ function PeriodComponent({ getSelectedParams, data }) {
         Period start:
              </th>
       <th>
-        <input type="date" id="periodStart" />
+        <input type="date" id="periodStart" name={name}/>
       </th>
       <th>
         Period end:
              </th>
       <th>
-        <input type="date" id="periodEnd" />
+        <input type="date" id="periodEnd" name={name} />
       </th>
     </tr>
   )

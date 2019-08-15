@@ -6,7 +6,7 @@ import CounterpartyComponent from './CounterpartyComponent'
 import { Line } from 'react-chartjs-2';
 
 
-function HistoricalDataComponent({ onClick, data }) {
+function HistoricalDataComponent({ onClick, data, name }) {
 
   return (
     <div className="chart" align="left" id="formChart" type="text/css" href="chart.css">
@@ -14,7 +14,7 @@ function HistoricalDataComponent({ onClick, data }) {
       <form id="formParams"  >
         <table id="tableParams" className="tableParams" align="left" cellSpacing="0" >
           <tbody>
-            <PeriodComponent />
+            <PeriodComponent name={name} />
             <tr>
                 <h4>Instrument type:</h4>
                 <InstrumentComponent />
@@ -30,7 +30,7 @@ function HistoricalDataComponent({ onClick, data }) {
           </tbody>
         </table>
       </form>
-      <h2 className="header" type="text/css" href="chart.css">Line Example</h2>
+      <h2 className="header" type="text/css" href="chart.css">Histirocal data</h2>
       <Line data={data}>
       </Line>
     </div>
