@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-daoAddr = 'test'
+daoAddr = 'http://127.0.0.1'
 daoPortLogin = ':7000/login'
 daoPortQuery = ':7000/webserver_to_dao'
 
@@ -80,6 +80,51 @@ def op_avgSellPrices(data, operName):
     #return response.text, response.status_code
     return jsonify(msg=response, status = 200)
 
+# operation for lossAndProfit data
+def op_lossAndProfit(data, operName):
+    # gather fields for this operation
+
+    data = json.loads(data)
+    startDate = data['periodStart']
+    endDate = data['periodEnd']
+
+    # Set up SQL query
+    query = 'SELECT cpty, (SELECT SUM(price*quantity) FROM Deals d WHERE type= "B") - SUM(price*quantity) AS RealisedProfitLoss FROM Deals WHERE type="S" GROUP BY cpty;'
+
+    data = {'query': query}
+    url = daoAddr + daoPortQuery
+    # Make get request to dao for DB data
+    resultReq = requests.get(url, data)
+    json_data = json.loads(resultReq.text)
+
+    strData = json_data['msg']
+
+    listData = list(ast.literal_eval(strData))
+    # results = result['result']
+
+    # Business logic. Prepare data for React frontend
+
+    cptyLabels = []
+    RealizedProfitLossList = []
+    # Go through rows in record and create data for React
+    for row in listData:
+        cptyName = row[0]
+        RealizedProfitLoss = row[1]
+
+        cptyLabels.append(cptyName)
+        RealizedProfitLossList.append(RealizedProfitLoss)
+
+    # Build JSON
+    response = {}
+
+    response['operationType'] = operName
+    response['labels'] = cptyLabels
+    response['Profits'] = RealizedProfitLossList
+
+    # Reply
+    #return response.text, response.status_code
+    return jsonify(msg=response, status = 200)
+
 @app.route("/query", methods=['GET'])
 def send_query():
     print(request.args)
@@ -87,20 +132,13 @@ def send_query():
     operParams = request.args.get('params', None)
     if operationRequest == 'avgSellPrices':
         return op_avgSellPrices(operParams, operationRequest)
+    elif operationRequest == 'lossAndProfit':
+        return op_lossAndProfit(operParams, operationRequest)
     else:
         response = {'Error'}
         status_code = 500
         return response, status_code
 
-
-class User:
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
-
-
-def as_user(dct):
-    return User(dct.get('username', None), dct.get('password', None))
 
 def stream_to_sql(jsonData, connection, cursor):
 
@@ -119,4 +157,4 @@ def stream_to_sql(jsonData, connection, cursor):
 
 
 def boot_app():
-    app.run(debug=True, threaded=True, host='0.0.0.0', port='5001')
+    app.run(debug=True, threaded=True, host='127.0.0.1', port='5001')
