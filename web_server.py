@@ -1,15 +1,10 @@
-import threading
-from RandomDealData import *
-import mysql.connector
 from datetime import datetime
-import json
 from flask import Flask, Response, request
 from flask_cors import CORS
 import requests
 
 app = Flask(__name__)
 CORS(app)
-
 
 daoAddr = 'http://127.0.0.1'
 daoPortLogin = ':7000/login'
