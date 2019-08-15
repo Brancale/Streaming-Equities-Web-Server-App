@@ -20,5 +20,4 @@ function PeriodComponent({ getSelectedParams, data, name }) {
   )
 }
 
-
 export default PeriodComponent;

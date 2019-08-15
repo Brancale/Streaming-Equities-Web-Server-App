@@ -23,5 +23,4 @@ function RealisedProfitLossComponent({onClick, data, name}){
     );
 }
 
-
 export default RealisedProfitLossComponent;
