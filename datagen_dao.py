@@ -11,9 +11,8 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-
-sqlHostAddr = '192.168.99.100'
-sqlRootPass = 'ppp'
+sqlHostAddr = 'mysql'
+sqlRootPass = 'E3kWrJQRpNmytMNK'
 
 @app.route("/webserver_to_dao", methods=['GET'])
 def deal_with_query():
