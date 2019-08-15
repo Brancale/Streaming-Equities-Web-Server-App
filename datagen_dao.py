@@ -14,7 +14,7 @@ CORS(app)
 # sqlRootPass = 'E3kWrJQRpNmytMNK'
 # sqlHostAddr = '192.168.99.100'
 # sqlRootPass = 'ppp'
-sqlHostAddr = '192.168.0.101:3306'
+sqlHostAddr = '192.168.0.101'
 sqlRootPass = 'E3kWrJQRpNmytMNK'
 @app.route("/webserver_to_dao", methods=['GET'])
 def deal_with_query():
