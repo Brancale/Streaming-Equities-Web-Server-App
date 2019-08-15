@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 # daoAddr = 'http://127.0.0.1'
-daoAddr = '192.168.0.227'
+daoAddr = 'http://reactserver-group15.apps.dbgrads-6eec.openshiftworkshop.com'
 daoPortLogin = ':7000/login'
 daoPortQuery = ':7000/webserver_to_dao'
 
