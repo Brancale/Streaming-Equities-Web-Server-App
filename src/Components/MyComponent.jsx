@@ -22,7 +22,7 @@ function MyComponent(props) {
     };
 
     console.log("posting req")
-    axios.post('http://127.0.0.1:5001/login', data)
+    axios.post('http://webserver:5001/login', data)
       .then((response) => {
         props.history.push("/chart")
       })
