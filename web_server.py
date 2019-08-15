@@ -1,6 +1,5 @@
 import ast
 import threading
-# from RandomDealData import *
 import mysql.connector
 from datetime import datetime
 import json
@@ -12,10 +11,14 @@ import json
 app = Flask(__name__)
 CORS(app)
 
+# CHANGE HERE FOR OCP
+daoAddr = 'http://127.0.0.1' # Local
+daoPortLogin = ':7000/login' # Local
+daoPortQuery = ':7000/webserver_to_dao' # Local
 
-daoAddr = 'http://127.0.0.1'
-daoPortLogin = ':7000/login'
-daoPortQuery = ':7000/webserver_to_dao'
+#daoAddr = 'daodatagen' # OCP
+#daoPortLogin = ':7000/login' # OCP
+#daoPortQuery = ':7000/webserver_to_dao' # OCP
 
 @app.route("/login", methods=['GET'])
 def login():
@@ -157,4 +160,6 @@ def stream_to_sql(jsonData, connection, cursor):
 
 
 def boot_app():
-    app.run(debug=True, threaded=True, host='127.0.0.1', port='5001')
+    # CHANGE HERE FOR OCP
+    #app.run(debug=True, threaded=True, host='0.0.0.0', port='5001') # OCP
+    app.run(debug=True, threaded=True, host='127.0.0.1', port='5001') # Local
