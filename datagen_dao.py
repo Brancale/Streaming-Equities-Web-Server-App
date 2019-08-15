@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-sqlHostAddr = 'node6.dbgrads-6eec.internal'
+sqlHostAddr = '192.168.0.78'
 sqlRootPass = 'E3kWrJQRpNmytMNK'
 
 @app.route("/webserver_to_dao", methods=['GET'])
