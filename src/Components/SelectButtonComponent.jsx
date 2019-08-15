@@ -1,9 +1,9 @@
 import React from 'react';
 
-function SelectButtonComponent({onClick}) {
+function SelectButtonComponent({onClick, name}) {
     return (
 
-        <button id="getParams" onClick={onClick}>Select</button>
+        <button id="getParams" name={name} onClick={onClick}>Select</button>
     )
 }
 
