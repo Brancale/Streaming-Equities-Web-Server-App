@@ -11,8 +11,11 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-sqlHostAddr = 'mysql'
-sqlRootPass = 'E3kWrJQRpNmytMNK'
+# CHANGE HERE FOR OCP
+sqlHostAddr = '192.168.99.100' # Local
+sqlRootPass = 'ppp' # Local
+#sqlHostAddr = 'mysql' # OCP
+#sqlRootPass = 'E3kWrJQRpNmytMNK' # OCP
 
 @app.route("/webserver_to_dao", methods=['GET'])
 def deal_with_query():
@@ -150,6 +153,7 @@ def stream_to_sql(jsonData, connection, cursor):
 
 
 def boot_app():
-    # app.run(debug=True, threaded=True, host='0.0.0.0', port='7000')
-    app.run(debug=True, threaded=True, host='0.0.0.0', port='7000')
+    # CHANGE HERE FOR OCP
+    # app.run(debug=True, threaded=True, host='0.0.0.0', port='7000') # OCP
+    app.run(debug=True, threaded=True, host='127.0.0.1', port='7000') # Local
 
