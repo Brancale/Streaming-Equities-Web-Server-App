@@ -24,7 +24,7 @@ function MyComponent(props) {
     console.log("posting req")
     //http://127.0.0.1:5001/login
 
-    axios.get('webserver:5001/login', {params:data})
+    axios.get('webserver:8080/login', {params:data})
       .then((response) => {
         props.history.push("/chart")
         
